@@ -51,7 +51,7 @@ do
 
     local buildmode = ulx.command( category_name, 'ulx build', ulx.buildmode, '!build' )
     buildmode:help( '#buildmode.enter' )
-    buildmode:defaultAcces( ULib.ACCESS_ALL )
+    buildmode:defaultAccess( ULib.ACCESS_ALL )
 
     buildmode:setOpposite( 'ulx pvp', {_, true}, '!pvp' )
     buildmode:setOpposite( 'ulx unbuild', {_, true}, '!unbuild' )
@@ -71,7 +71,7 @@ do
     local forcebuild = ulx.command( category_name, 'ulx forcebuild', ulx.forceBuild, '!fbuild' )
 	forcebuild:addParam({ type=ULib.cmds.PlayersArg })
 	forcebuild:help( '#buildmode.force' )
-    forcebuild:defaultAcces( ULib.ACCES_ADMIN )
+    forcebuild:defaultAccess( ULib.ACCES_ADMIN )
 
     forcebuild:setOpposite( 'ulx forcepvp', {_, true}, '!fpvp' )
     buildmode:setOpposite( 'ulx forceunbuild', {_, true}, '!funbuild' )
