@@ -74,6 +74,6 @@ do
     forcebuild:defaultAccess( ULib.ACCESS_ADMIN )
 
     forcebuild:setOpposite( 'ulx forcepvp', {_, true}, '!fpvp' )
-    buildmode:setOpposite( 'ulx forceunbuild', {_, true}, '!funbuild' )
+    forcebuild:setOpposite( 'ulx forceunbuild', {_, true}, '!funbuild' )
 
 end
