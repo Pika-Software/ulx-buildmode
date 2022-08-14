@@ -15,17 +15,20 @@ do
 
     local PLAYER = FindMetaTable( 'Player' )
 
-    function PLAYER:SetBuildMode( bool )
+    function PLAYER:SetBuildMode( bool, force )
         assert( isbool( bool ), 'Argument #1 must be a boolean!' )
-        if (self:InBuildMode() == bool) then return end
-        if ((self[module_name] or 0) > CurTime()) then
-            net.Start( module_name )
-                net.WriteBool( false )
-            net.Send( self )
-            return
+        if not force then
+            if (self:InBuildMode() == bool) then return end
+            if ((self[module_name] or 0) > CurTime()) then
+                net.Start( module_name )
+                    net.WriteBool( false )
+                net.Send( self )
+                return
+            end
+
+            self[module_name] = CurTime() + change_delay
         end
 
-        self[module_name] = CurTime() + change_delay
         self:SetNWBool( module_name, bool )
 
         if kill_player then
@@ -34,6 +37,7 @@ do
 
         net.Start( module_name )
             net.WriteBool( true )
+            net.WriteBool( bool )
         net.Send( self )
     end
 
