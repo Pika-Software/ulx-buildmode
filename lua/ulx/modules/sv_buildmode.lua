@@ -6,7 +6,7 @@ cvars.AddChangeCallback('ulx_buildmode_timeout', function( name, old, new )
     change_delay = tonumber( new ) or 0
 end, module_name)
 
-local kill_player = CreateConVar('ulx_buildmode_kill', '1', FCVAR_ARCHIVE, ' - Kill player on change bulid/pvp'):GetBool()
+local kill_player = CreateConVar('ulx_buildmode_kill', '1', FCVAR_ARCHIVE, ' - Respawn player after change mode'):GetBool()
 cvars.AddChangeCallback('ulx_buildmode_kill', function( name, old, new )
     kill_player = new == '1'
 end, module_name)
@@ -23,7 +23,7 @@ do
                 net.Start( module_name )
                     net.WriteBool( false )
                 net.Send( self )
-                return
+                return false
             end
 
             self[module_name] = CurTime() + change_delay
@@ -32,13 +32,15 @@ do
         self:SetNWBool( module_name, bool )
 
         if kill_player then
-            self:KillSilent()
+            self:Spawn()
         end
 
         net.Start( module_name )
             net.WriteBool( true )
             net.WriteBool( bool )
         net.Send( self )
+
+        return true
     end
 
 end

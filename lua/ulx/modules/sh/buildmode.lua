@@ -40,8 +40,11 @@ end
 do
 
     function ulx.buildmode( ply, disable )
-        ply:SetBuildMode( not disable )
-        ulx.fancyLogAdmin( ply, '#A changed mode to ' .. (disable and 'pvp' or 'build') )
+        local isSuc = ply:SetBuildMode( not disable )
+
+        if isSuc then 
+            ulx.fancyLogAdmin( ply, '#A changed mode to ' .. (disable and 'pvp' or 'build') ) 
+        end
     end
 
     local buildmode = ulx.command( category_name, 'ulx build', ulx.buildmode, '!build' )
