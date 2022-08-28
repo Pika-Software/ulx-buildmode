@@ -30,7 +30,8 @@ do
         end
 
         self:SetNWBool( module_name, bool )
-
+	hook.Run( "PlayerChangedBuildMode", ply, bool )
+		
         if kill_player then
             self:Spawn()
         end
