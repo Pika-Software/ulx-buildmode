@@ -34,7 +34,9 @@ do
 		
         if kill_player then
             self:ExitVehicle()
-            self:Spawn()
+            timer.Simple(.1, function()
+                self:Spawn()
+            end)
         end
 
         net.Start( module_name )
