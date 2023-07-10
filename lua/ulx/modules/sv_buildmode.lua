@@ -33,6 +33,7 @@ do
 	hook.Run( "PlayerChangedBuildMode", ply, bool )
 		
         if kill_player then
+            self:ExitVehicle()
             self:Spawn()
         end
 
