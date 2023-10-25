@@ -32,21 +32,26 @@ end
 
 if CLIENT then
 
+    local notification_AddLegacy = notification.AddLegacy
+    local language_GetPhrase = language.GetPhrase
+    local NOTIFY_GENERIC = NOTIFY_GENERIC
+    local NOTIFY_ERROR = NOTIFY_ERROR
+
     -- Notifications
     net.Receive( moduleName, function()
         if net.ReadBool() then
             if net.ReadBool() then
-                notification.AddLegacy( '#ulx.buildmode.activated', NOTIFY_GENERIC, 5 )
+                notification_AddLegacy( language_GetPhrase( 'ulx.buildmode.activated' ), NOTIFY_GENERIC, 5 )
             else
-                notification.AddLegacy( '#ulx.buildmode.deactivated', NOTIFY_GENERIC, 5 )
+                notification_AddLegacy( language_GetPhrase( 'ulx.buildmode.deactivated' ), NOTIFY_GENERIC, 5 )
             end
         else
-            notification.AddLegacy( '#ulx.buildmode.timeout', NOTIFY_ERROR, 5 )
+            notification_AddLegacy( language_GetPhrase( 'ulx.buildmode.timeout' ), NOTIFY_ERROR, 5 )
         end
     end )
 
-    -- icon in context menu
-    list.Set( 'DesktopWindows', 'BuildMode', {
+    -- Context menu button
+    list.Set( 'DesktopWindows', moduleName, {
         ['title'] = 'PVP/Build',
         ['icon'] = 'icon16/heart.png',
         ['init'] = function()
