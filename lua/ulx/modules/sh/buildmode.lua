@@ -22,11 +22,11 @@ if CLIENT then
             local ply = LocalPlayer()
             if IsValid( ply ) then
                 if net.ReadBool() then
-                    notification.AddLegacy('Now you in build! Type !pvp for exit', NOTIFY_GENERIC, 5)
+                    notification.AddLegacy('Now you\'re in build! Type !pvp for exit', NOTIFY_GENERIC, 5)
                     return
                 end
 
-                notification.AddLegacy('Now you in pvp!', NOTIFY_GENERIC, 5)
+                notification.AddLegacy('Now you\'re in pvp!', NOTIFY_GENERIC, 5)
             end
 
             return
@@ -34,6 +34,25 @@ if CLIENT then
 
         notification.AddLegacy('Wait after changing mode!', NOTIFY_GENERIC, 5)
     end)
+
+    -- icon in context menu
+    do 
+
+        list.Set( "DesktopWindows", "BuildMode", {
+            title = "PVP/Build",
+            icon = "icon16/heart.png",
+            init = function( icon, window )
+                
+                if LocalPlayer():InBuildMode() then 
+                    RunConsoleCommand( 'ulx', 'pvp' )
+                else 
+                    RunConsoleCommand( 'ulx', 'build' )
+                end
+                
+            end
+        } )
+    
+    end
 
 end
 
