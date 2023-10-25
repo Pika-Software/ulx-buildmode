@@ -1,1 +1,1 @@
-# gmod_ulx_buildmode
+# Garry's Mod Addon - ULX Buildmode
