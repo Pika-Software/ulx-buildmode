@@ -17,7 +17,7 @@ do
 
         local curTime = CurTime()
         if ( curTime - lastBuildModeChange ) < ulx_buildmode_timeout:GetFloat() then
-            ply.LastBuildModeChange = curTime
+            -- ply.LastBuildModeChange = curTime
             return false
         end
     end )
