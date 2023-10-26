@@ -24,6 +24,18 @@ hook.Add( 'ScalePlayerDamage', moduleName, function( ply, _, damageInfo )
     if IsValid( att ) and att:IsPlayer() and att:InBuildMode() then
         return true
     end
+
+    local infl = damageInfo:GetInflictor()
+    if IsValid( infl ) then
+        if infl:IsPlayer() and infl:InBuildMode() then
+            return true
+        end
+
+        local owner = infl:GetOwner()
+        if IsValid( owner ) and owner:IsPlayer() and owner:InBuildMode() then
+            return true
+        end
+    end
 end )
 
 if CLIENT then
@@ -67,6 +79,7 @@ if CLIENT then
 
 end
 
+-- Player Command
 do
 
     function ulx.buildmode( ply, disable )
@@ -82,7 +95,7 @@ do
 
 end
 
--- Admin command
+-- Admin Command
 do
 
     function ulx.forceBuild( ply, players, disable )

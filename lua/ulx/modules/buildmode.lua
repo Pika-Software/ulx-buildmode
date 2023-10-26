@@ -41,7 +41,7 @@ do
         if requestedState or not ulx_buildmode_respawn:GetBool() then return end
         ply:KillSilent()
 
-        timer_Simple( 0.25, function()
+        timer_Simple( 0.025, function()
             if IsValid( ply ) and not ply:Alive() then
                 ply:Spawn()
             end
