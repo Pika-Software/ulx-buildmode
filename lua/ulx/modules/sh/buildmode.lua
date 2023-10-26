@@ -60,7 +60,7 @@ if CLIENT then
 
     -- Context menu button
     list.Set( 'DesktopWindows', moduleName, {
-        ['title'] = 'PVP/Build',
+        ['title'] = '#ulx.buildmode',
         ['icon'] = 'icon16/building.png',
         ['init'] = function( icon )
             local ply = LocalPlayer()
