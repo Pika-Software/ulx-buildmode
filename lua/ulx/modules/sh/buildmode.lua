@@ -12,23 +12,19 @@ do
 
 end
 
+local IsValid = IsValid
+
 -- Blocking blood particles and damage from/to player in build mode
-do
+hook.Add( 'ScalePlayerDamage', moduleName, function( ply, _, damageInfo )
+    if ply:InBuildMode() then
+        return true
+    end
 
-    local IsValid = IsValid
-
-    hook.Add( 'ScalePlayerDamage', moduleName, function( ply, _, damageInfo )
-        if ply:InBuildMode() then
-            return true
-        end
-
-        local att = damageInfo:GetAttacker()
-        if IsValid( att ) and att:IsPlayer() and att:InBuildMode() then
-            return true
-        end
-    end )
-
-end
+    local att = damageInfo:GetAttacker()
+    if IsValid( att ) and att:IsPlayer() and att:InBuildMode() then
+        return true
+    end
+end )
 
 if CLIENT then
 
@@ -53,9 +49,15 @@ if CLIENT then
     -- Context menu button
     list.Set( 'DesktopWindows', moduleName, {
         ['title'] = 'PVP/Build',
-        ['icon'] = 'icon16/heart.png',
-        ['init'] = function()
-            if LocalPlayer():InBuildMode() then
+        ['icon'] = 'icon16/building.png',
+        ['init'] = function( icon )
+            local ply = LocalPlayer()
+            ply:SetNW2VarProxy( moduleName, function( _, __, ___, newState )
+                if not IsValid( icon ) then return end
+                icon:SetIcon( newState and 'icon16/accept.png' or 'icon16/cancel.png' )
+            end )
+
+            if ply:InBuildMode() then
                 RunConsoleCommand( 'ulx', 'pvp' )
             else
                 RunConsoleCommand( 'ulx', 'build' )

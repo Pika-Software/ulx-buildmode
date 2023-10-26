@@ -13,7 +13,11 @@ do
         if not requestedState then return end
 
         local lastBuildModeChange = ply.LastBuildModeChange
-        if lastBuildModeChange and ( CurTime() - lastBuildModeChange ) > ulx_buildmode_timeout:GetFloat() then
+        if not lastBuildModeChange then return end
+
+        local curTime = CurTime()
+        if ( curTime - lastBuildModeChange ) < ulx_buildmode_timeout:GetFloat() then
+            ply.LastBuildModeChange = curTime
             return false
         end
     end )
@@ -49,30 +53,20 @@ end
 -- Server-Side Meta-Functions
 do
 
-    local TEAM_SPECTATOR = TEAM_SPECTATOR
-
-    local function canBuildMode( ply, requestedState )
-        local currentState = ply:InBuildMode()
-        if currentState == requestedState then
-            return true
-        end
-
-        local hookResult = hook.Run( 'CanPlayerBuildMode', ply, currentState, requestedState )
-        if hookResult ~= nil then
-            return hookResult == true
-        end
-
-        return ply:IsFullyAuthenticated() and ply:Alive() and ply:Team() ~= TEAM_SPECTATOR
-    end
-
     local PLAYER = FindMetaTable( 'Player' )
+    local hook_Run = hook.Run
     local assert = assert
     local isbool = isbool
 
     function PLAYER:SetBuildMode( requestedState, hideNotification, force )
         assert( isbool( requestedState ), 'Argument #1 must be a boolean!' )
 
-        if force or canBuildMode( self, requestedState ) then
+        local currentState = self:InBuildMode()
+        if currentState == requestedState then
+            return false
+        end
+
+        if force or hook_Run( 'CanPlayerBuildMode', self, currentState, requestedState ) ~= false then
             self:SetNW2Bool( moduleName, requestedState )
 
             if not hideNotification then
@@ -82,7 +76,7 @@ do
                 net.Send( self )
             end
 
-            hook.Run( 'PlayerToggledBuildMode', self, currentState, requestedState )
+            hook_Run( 'PlayerToggledBuildMode', self, currentState, requestedState )
             return true
         end
 
