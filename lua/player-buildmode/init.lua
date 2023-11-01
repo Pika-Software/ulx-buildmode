@@ -158,17 +158,17 @@ hook_Add( 'EntityTakeDamage', 'Player BuildMode::No Entity Damage', function( en
     end
 
     -- https://wiki.facepunch.com/gmod/Entity:GetRagdollOwner
-    if owner and not IsEntity( owner ) or not IsValid( owner ) then
+    if not owner or not IsEntity( owner ) or not IsValid( owner ) then
         owner = entity:GetRagdollOwner()
     end
 
     -- https://wiki.facepunch.com/gmod/Entity:GetCreator
-    if owner and not IsEntity( owner ) or not IsValid( owner ) then
+    if not owner or not IsEntity( owner ) or not IsValid( owner ) then
         owner = entity:GetCreator()
     end
 
     -- https://wiki.facepunch.com/gmod/Entity:GetOwner
-    if owner and not IsEntity( owner ) or not IsValid( owner ) then
+    if not owner or not IsEntity( owner ) or not IsValid( owner ) then
         owner = entity:GetOwner()
     end
 
