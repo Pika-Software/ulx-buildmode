@@ -16,6 +16,11 @@ The addon adds the ability for players to toggle buildmode and adds basic featur
 PLAYER:InBuildMode()
 ```
 
+### A server-side player meta function, returns true if the buildmode switch is successful, force forced buildmode switch on player ignoring CanPlayerBuildMode hook, hideNotification hides notifications about buildmode switch.
+```lua
+PLAYER:SetBuildMode( requestedState, hideNotification, force )
+```
+
 ### A server-side hook, called when a player tries to change the buildmode state, return here true allows the player to change the buildmode state to requested state.
 ```lua
 GM:CanPlayerBuildMode( ply, currentState, requestedState )
