@@ -1,4 +1,6 @@
 # Garry's Mod Addon - ULX Buildmode
+The addon adds the ability for players to toggle buildmode and adds basic features for it to work, supports customization. Basically prevents players with buildmod from dealing damage to other players, as well as other players cannot deal damage to players in buildmode. Players with builmode can use noclip by default.
+
 ## Features
 - Universal and easy Developer API.
 - Multilanguage ( By default supports: en, uk, ru ).
