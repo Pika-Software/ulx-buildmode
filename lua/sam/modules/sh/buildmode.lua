@@ -107,8 +107,8 @@ do
 
     local forcebuild = ulx.command( categoryName, 'ulx forcebuild', ulx.forceBuild, '!fbuild' )
     forcebuild:setOpposite( 'ulx forcepvp', { _, _, true }, '!fpvp' )
-    forcebuild:addParam( { ['type'] = ULib.cmds.BoolArg, ['invisible'] = true } )
     forcebuild:addParam( { ['type'] = ULib.cmds.PlayersArg } )
+    forcebuild:addParam( { ['type'] = ULib.cmds.BoolArg, ['invisible'] = true } )
     forcebuild:defaultAccess( ULib.ACCESS_ADMIN )
     forcebuild:help( 'Force build/pvp mode for selected players' )
 
